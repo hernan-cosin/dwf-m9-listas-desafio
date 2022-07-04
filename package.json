@@ -1,0 +1,26 @@
+{
+  "name": "dwf-m9",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hernan-cosin/dwf-m9.git",
+  "author": "hernan-cosin <78047711+hernan-cosin@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next"
+  },
+  "dependencies": {
+    "airtable": "^0.11.4",
+    "algoliasearch": "^4.13.1",
+    "micro-method-router": "^0.1.0",
+    "next": "^12.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.0.14",
+    "typescript": "^4.7.4"
+  }
+}
