@@ -1,19 +1,25 @@
-import methods from "micro-method-router" 
 import type { NextApiRequest, NextApiResponse } from "next";
+import methods from "micro-method-router";
+import { getOffsetAndLimitFromReq } from "lib/requests";
+import { ambosIndex } from "lib/algolia";
 
 export default methods({
-    async get(req: NextApiRequest, res: NextApiResponse) {
-      const q = req.query.q;
-      const limit = req.query.limit;
-      const offset = req.query.offset;
+  async get(req: NextApiRequest, res: NextApiResponse) {
+    const { limit, offset } = getOffsetAndLimitFromReq(req, 100, 100);
+    const q = req.query.q;
 
-      res.send({q, limit, offset})
-  
-    //   res.status(200).json({
-    //     body: req.body,
-    //     query: req.query,
-    //     cookies: req.cookies,
-    //     message: "Se envió un codigo a tu email " + email,
-    //   });
-    },
-  });
+    const results = await ambosIndex.search(q as string, {
+      offset: offset,
+      length: limit,
+    });
+
+    res.send({
+      results: results.hits,
+      pagination: {
+        offset: offset,
+        limit: limit,
+        total: results.nbHits,
+      },
+    });
+  },
+});
